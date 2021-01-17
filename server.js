@@ -5,6 +5,8 @@ const errorhandler = require('errorhandler')
 const bodyParser = require('body-parser');
 const api = express();
 let createcontactRouter = require('./manageRouters/createContactRouter');
+let updatecontactRouter = require('./manageRouters/updateContactRouter');
+let contactdataRouter = require('./manageRouters/ContactDataRouter');
 const multer = require('multer');
 const PORT = 4000;
 const sqlite3 = require('sqlite3');
@@ -132,8 +134,8 @@ api.post('/newmember', upload.single('avatar'), async(req, res, next) => {
 });
 
 api.use('/createcontact', authenticateToken, createcontactRouter)
-
-
+api.use('/updatecontact', authenticateToken, updatecontactRouter)
+api.use('/contactsdata', authenticateToken, contactdataRouter)
 
 api.listen(PORT, (err) => {
     if (err) {
